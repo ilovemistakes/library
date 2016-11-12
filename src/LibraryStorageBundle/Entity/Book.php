@@ -41,9 +41,14 @@ class Book
     private $library;
 
     /**
-     * @ORM\ManyToOne(targetEntity="library", inversedBy="books")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="books")
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="book")
+     */
+    private $records;
 
 
     /**
@@ -131,11 +136,11 @@ class Book
     /**
      * Set user
      *
-     * @param \LibraryStorageBundle\Entity\library $user
+     * @param \LibraryStorageBundle\Entity\User $user
      *
      * @return Book
      */
-    public function setUser(\LibraryStorageBundle\Entity\library $user = null)
+    public function setUser(\LibraryStorageBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -145,7 +150,7 @@ class Book
     /**
      * Get user
      *
-     * @return \LibraryStorageBundle\Entity\library
+     * @return \LibraryStorageBundle\Entity\User
      */
     public function getUser()
     {
@@ -154,5 +159,46 @@ class Book
 
     public function __toString() {
         return $this->getName();
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->records = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add record
+     *
+     * @param \LibraryStorageBundle\Entity\Record $record
+     *
+     * @return Book
+     */
+    public function addRecord(\LibraryStorageBundle\Entity\Record $record)
+    {
+        $this->records[] = $record;
+
+        return $this;
+    }
+
+    /**
+     * Remove record
+     *
+     * @param \LibraryStorageBundle\Entity\Record $record
+     */
+    public function removeRecord(\LibraryStorageBundle\Entity\Record $record)
+    {
+        $this->records->removeElement($record);
+    }
+
+    /**
+     * Get records
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecords()
+    {
+        return $this->records;
     }
 }

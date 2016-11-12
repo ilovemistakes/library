@@ -33,6 +33,11 @@ class User
      */
     private $books;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="user")
+     */
+    private $records;
+
 
     /**
      * Get id
@@ -111,5 +116,39 @@ class User
 
     public function __toString() {
         return $this->getName();
+    }
+
+    /**
+     * Add record
+     *
+     * @param \LibraryStorageBundle\Entity\Record $record
+     *
+     * @return User
+     */
+    public function addRecord(\LibraryStorageBundle\Entity\Record $record)
+    {
+        $this->records[] = $record;
+
+        return $this;
+    }
+
+    /**
+     * Remove record
+     *
+     * @param \LibraryStorageBundle\Entity\Record $record
+     */
+    public function removeRecord(\LibraryStorageBundle\Entity\Record $record)
+    {
+        $this->records->removeElement($record);
+    }
+
+    /**
+     * Get records
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecords()
+    {
+        return $this->records;
     }
 }
