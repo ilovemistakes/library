@@ -1,0 +1,4 @@
+services:
+#    library_storage.example:
+#        class: LibraryStorageBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
