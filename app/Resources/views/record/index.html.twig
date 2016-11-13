@@ -21,6 +21,9 @@
                         <li>
                             <a href="{{ path('record_show', { 'id': record.id }) }}">show</a>
                         </li>
+                        <li>
+                            <a href="{{ path('record_edit', { 'id': record.id }) }}">edit</a>
+                        </li>
                     </ul>
                 </td>
             </tr>
@@ -28,5 +31,9 @@
         </tbody>
     </table>
 
-    
+    <ul>
+        <li>
+            <a href="{{ path('record_new') }}">Create a new record</a>
+        </li>
+    </ul>
 {% endblock %}

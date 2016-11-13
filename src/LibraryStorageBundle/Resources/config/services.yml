@@ -2,3 +2,7 @@ services:
 #    library_storage.example:
 #        class: LibraryStorageBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    record_subscriber:
+        class: LibraryStorageBundle\EventListener\RecordSubscriber
+        tags:
+            - { name: doctrine.event_subscriber }
