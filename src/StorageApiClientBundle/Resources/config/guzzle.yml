@@ -1,0 +1,13 @@
+guzzle:
+    logging: "%kernel.debug%"
+
+    clients:
+        library_storage:
+            base_url: "http://storage.local/api/v1/"
+
+            headers:
+                Accept: "application/json"
+
+            options:
+                timeout: 30
+

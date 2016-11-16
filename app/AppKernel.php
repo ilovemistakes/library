@@ -19,6 +19,9 @@ class AppKernel extends Kernel
             new LibraryStorageBundle\LibraryStorageBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new StorageApiBundle\StorageApiBundle(),
+            new StorageApiClientBundle\StorageApiClientBundle(),
+            new LibraryBundle\LibraryBundle(),
+            new EightPoints\Bundle\GuzzleBundle\GuzzleBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

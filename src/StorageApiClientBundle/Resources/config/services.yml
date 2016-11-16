@@ -1,0 +1,4 @@
+services:
+    storage_api_client.client:
+        class: StorageApiClientBundle\Service\ApiClient
+        arguments: ["@guzzle.client.library_storage", "@jms_serializer"]

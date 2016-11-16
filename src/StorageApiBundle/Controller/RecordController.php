@@ -64,6 +64,7 @@ class RecordController extends ApiController
         }
 
         try {
+            // TODO: deny updating relationship properties
             $em = $this->getDoctrine()->getManager();
             $em->persist($record);
             $em->flush($record);
@@ -74,7 +75,7 @@ class RecordController extends ApiController
         return $this->redirectToRoute(
             'api_record_show',
             array('id' => $record->getId()),
-            204
+            201
         )->setContent('');
     }
 }
