@@ -2,5 +2,5 @@
 
 namespace LibraryStorageBundle\Exception;
 
-class BookNotTakenException extends \Exception {
+class BookStatusException extends \Exception {
 }

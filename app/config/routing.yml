@@ -1,7 +1,7 @@
 storage_api:
     resource: "@StorageApiBundle/Controller/"
     type:     annotation
-    prefix:   /api/
+    prefix:   /api/v1/
 
 library_storage:
     resource: "@LibraryStorageBundle/Controller/"

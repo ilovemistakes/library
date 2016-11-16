@@ -2,5 +2,7 @@
 
 namespace StorageApiBundle\Exception;
 
-class ApiException extends \Exception {
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
+class ApiException extends HttpException {
 }

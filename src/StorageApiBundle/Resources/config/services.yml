@@ -4,4 +4,8 @@ services:
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
     jms_serializer.object_constructor:
         alias: jms_serializer.doctrine_object_constructor
-
+    api_exception_subscriber:
+        class: StorageApiBundle\EventListener\ApiExceptionSubscriber
+        arguments: ["%kernel.debug%"]
+        tags:
+            - { name: kernel.event_subscriber }

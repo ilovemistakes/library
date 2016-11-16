@@ -7,8 +7,7 @@ use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use LibraryStorageBundle\Entity\Book;
 use LibraryStorageBundle\Entity\Record;
-use LibraryStorageBundle\Exception\BookAlreadyTakenException;
-use LibraryStorageBundle\Exception\BookNotTakenException;
+use LibraryStorageBundle\Exception\BookStatusException;
 
 class RecordSubscriber implements EventSubscriber {
     public function onFlush(OnFlushEventArgs $args) {
@@ -22,15 +21,16 @@ class RecordSubscriber implements EventSubscriber {
 
             $book = $entity->getBook();
 
+            // TODO: check status according to previous action
             if($entity->getAction() == Record::ACTION_TAKE) {
                 if(!is_null($book->getUser())) {
-                    throw new BookAlreadyTakenException();
+                    throw new BookStatusException("Book is already taken");
                 }
 
                 $book->setUser($entity->getUser());
             } else if($entity->getAction() == Record::ACTION_RETURN) {
                 if(is_null($book->getUser()) || $book->getUser()->getId() != $entity->getUser()->getId()) {
-                    throw new BookNotTakenException();
+                    throw new BookStatusException("Book is already returned");
                 }
 
                 $book->setUser(null);

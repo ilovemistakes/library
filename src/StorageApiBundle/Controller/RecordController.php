@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use LibraryStorageBundle\Entity\Record;
+use LibraryStorageBundle\Exception\BookStatusException;
 use StorageApiBundle\Exception\ApiException;
 
 /**
@@ -51,20 +52,25 @@ class RecordController extends ApiController
     public function newAction(Request $request) {
         try {
             $record = $this->unserialize($request->getContent(), 'LibraryStorageBundle\Entity\Record');
+            // TODO: handle exceptions carefully
         } catch(\Exception $e) {
-            throw new ApiException($e->getMessage());
+            throw new ApiException(400, $e->getMessage());
         }
 
         $errors = $this->get('validator')->validate($record);
 
         if(count($errors) > 0) {
-            throw new ApiException((string)$errors);
+            throw new ApiException(400, (string)$errors);
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($record);
-        $em->flush($record);
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($record);
+            $em->flush($record);
+        } catch(BookStatusException $e) {
+            throw new ApiException(400, $e->getMessage(), $e);
+        }
 
-        return $this->redirectToRoute('api_record_show', array('id' => $record->getId()));
+        return $this->redirectToRoute('api_record_show', array('id' => $record->getId()), 201);
     }
 }
