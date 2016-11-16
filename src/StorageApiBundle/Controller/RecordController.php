@@ -71,6 +71,10 @@ class RecordController extends ApiController
             throw new ApiException(400, $e->getMessage(), $e);
         }
 
-        return $this->redirectToRoute('api_record_show', array('id' => $record->getId()), 201);
+        return $this->redirectToRoute(
+            'api_record_show',
+            array('id' => $record->getId()),
+            204
+        )->setContent('');
     }
 }

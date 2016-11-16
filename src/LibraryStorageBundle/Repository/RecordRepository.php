@@ -2,6 +2,8 @@
 
 namespace LibraryStorageBundle\Repository;
 
+use LibraryStorageBundle\Entity\User;
+
 /**
  * RecordRepository
  *
@@ -10,4 +12,40 @@ namespace LibraryStorageBundle\Repository;
  */
 class RecordRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Finds all user's record for a given datetime range
+     */
+    public function findByUserAndDateRange(User $user, $from, $to) {
+        $to = $this->convertToDateTime($to);
+        $from = $this->convertToDateTime($from);
+
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT r
+                FROM LibraryStorageBundle:Record r
+                WHERE r.user = :user
+                AND r.created BETWEEN :from AND :to
+                ORDER BY r.created ASC'
+            )
+            ->setParameter('user', $user)
+            ->setParameter('from', $from->format('Y-m-d H:i:s'))
+            ->setParameter('to', $to->format('Y-m-d H:i:s'))
+            ->getResult();
+    }
+
+    /**
+     * Perform datetime parameter validation
+     */
+    private function convertToDateTime($field)
+    {
+        try {
+            $date = new \DateTime($field);
+        } catch (\Exception $e) {
+            throw new \InvalidArgumentException(
+                sprintf('Value "%s" is not in a valid "strtotime" format', $field)
+            );
+        }
+
+        return $date;
+    }
 }

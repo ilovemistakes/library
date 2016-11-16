@@ -64,7 +64,7 @@ class Record
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="records")
      * @ORM\JoinColumn(nullable=false)
      * @JMS\Expose
-     * @JMS\Groups({"details"})
+     * @JMS\Groups({"details", "list"})
      * @Assert\NotNull()
      */
     private $book;
