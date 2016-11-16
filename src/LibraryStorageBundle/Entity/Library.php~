@@ -3,12 +3,14 @@
 namespace LibraryStorageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Library
  *
  * @ORM\Table(name="library")
  * @ORM\Entity(repositoryClass="LibraryStorageBundle\Repository\LibraryRepository")
+ * @JMS\ExclusionPolicy("all")
  */
 class Library
 {
@@ -18,6 +20,8 @@ class Library
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Expose
+     * @JMS\Groups({"details", "list"})
      */
     private $id;
 
@@ -25,6 +29,8 @@ class Library
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"details", "list"})
      */
     private $name;
 

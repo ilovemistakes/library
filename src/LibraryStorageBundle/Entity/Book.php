@@ -3,12 +3,14 @@
 namespace LibraryStorageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Book
  *
  * @ORM\Table(name="book")
  * @ORM\Entity(repositoryClass="LibraryStorageBundle\Repository\BookRepository")
+ * @JMS\ExclusionPolicy("all")
  */
 class Book
 {
@@ -18,6 +20,8 @@ class Book
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Expose
+     * @JMS\Groups({"details", "list"})
      */
     private $id;
 
@@ -25,6 +29,8 @@ class Book
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"details", "list"})
      */
     private $name;
 
@@ -32,16 +38,24 @@ class Book
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"details", "list"})
      */
     private $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="Library", inversedBy="books")
+     * @ORM\JoinColumn(nullable=false)
+     * @JMS\Expose
+     * @JMS\Groups({"details"})
      */
     private $library;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="books")
+     * @JMS\Expose
+     * @JMS\Groups({"details"})
+     * @JMS\MaxDepth(1)
      */
     private $user;
 

@@ -3,12 +3,15 @@
 namespace LibraryStorageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Record
  *
  * @ORM\Table(name="record")
  * @ORM\Entity(repositoryClass="LibraryStorageBundle\Repository\RecordRepository")
+ * @JMS\ExclusionPolicy("all")
  */
 class Record
 {
@@ -21,6 +24,8 @@ class Record
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Expose
+     * @JMS\Groups({"details", "list"})
      */
     private $id;
 
@@ -28,16 +33,39 @@ class Record
      * @var string
      *
      * @ORM\Column(name="action", type="string", length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"details", "list"})
+     * @Assert\NotBlank()
+     * @Assert\Choice({"take", "return"})
      */
     private $action;
 
     /**
+     * @var datetime
+     *
+     * @ORM\Column(name="created", type="datetime")
+     * @JMS\Expose
+     * @JMS\Groups({"details", "list"})
+     * @Assert\NotBlank()
+     * @Assert\DateTime()
+     */
+    private $created;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="records")
+     * @ORM\JoinColumn(nullable=false)
+     * @JMS\Expose
+     * @JMS\Groups({"details"})
+     * @Assert\NotNull()
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="records")
+     * @ORM\JoinColumn(nullable=false)
+     * @JMS\Expose
+     * @JMS\Groups({"details"})
+     * @Assert\NotNull()
      */
     private $book;
 
@@ -126,5 +154,33 @@ class Record
     public function getBook()
     {
         return $this->book;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Record
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function __construct() {
+        $this->created = new \DateTime();
     }
 }

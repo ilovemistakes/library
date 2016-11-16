@@ -13,7 +13,7 @@ class RecordType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('action')->add('user')->add('book')        ;
+        $builder->add('action')->add('created')->add('user')->add('book')        ;
     }
     
     /**
