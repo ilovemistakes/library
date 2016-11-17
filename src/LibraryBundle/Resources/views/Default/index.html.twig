@@ -2,6 +2,42 @@
 
 {% block body %}
 
-Hello World!!!
+{% for flash_message in app.session.flashBag.get('notice') %}
+    <div class="flash-notice">
+    {{ flash_message }}
+    </div>
+{% endfor %}
+
+{% for flash_message in app.session.flashBag.get('error') %}
+    <div class="flash-error">
+    {{ flash_message }}
+    </div>
+{% endfor %}
+
+<h4>Добро пожаловать в библиотеку №1.</h4>
+
+    <p>У нас есть следующие книги:
+    <ul>
+    {% for book in books if book.user is null %}
+        <li>
+            {{ book.name }}, автор {{ book.author }}
+            <a href="{{ path('library_book_take', {'id': book.id}) }}">Взять</a>
+        </li>
+    {% else %}
+        <li><em>В настоящее время книг нет, зайдите попозже!</em></li>
+    {% endfor %}
+    </ul>
+
+    <p>Книги на руках у читателей:
+    <ul>
+    {% for book in books if book.user %}
+        <li>
+            {{ book.name }}, автор {{ book.author }}, на руках у читателя {{ book.user.name }}
+            <a href="{{ path('library_book_return', {'id': book.id}) }}">Вернуть</a>
+        </li>
+    {% else %}
+        <li><em>В настоящее время все книги находятся в библиотеке.</em></li>
+    {% endfor %}
+    </ul>
 
 {% endblock %}

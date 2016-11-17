@@ -1,7 +1,7 @@
 library:
     resource: "@LibraryBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /mylibrary
 
 storage_api:
     resource: "@StorageApiBundle/Controller/"
@@ -11,7 +11,7 @@ storage_api:
 library_storage:
     resource: "@LibraryStorageBundle/Controller/"
     type:     annotation
-    prefix:   /library1
+    prefix:   /storage
 
 app:
     resource: "@AppBundle/Controller/"

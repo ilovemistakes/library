@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-Hello World!
+
+<li><a href="{{ url('library_index') }}">Libraries</a></li>
+<li><a href="{{ url('book_index') }}">Books</a></li>
+<li><a href="{{ url('user_index') }}">Users</a></li>
+<li><a href="{{ url('record_index') }}">Records</a></li>
+
 {% endblock %}

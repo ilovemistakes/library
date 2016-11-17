@@ -54,7 +54,7 @@ class Book
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="books")
      * @JMS\Expose
-     * @JMS\Groups({"details"})
+     * @JMS\Groups({"details", "list"})
      * @JMS\MaxDepth(1)
      */
     private $user;
