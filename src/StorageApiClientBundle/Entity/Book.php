@@ -16,6 +16,7 @@ class Book
      *
      * @JMS\Type("integer")
      * @JMS\Expose
+     * @JMS\Groups({"Default", "record"})
      */
     private $id;
 
@@ -23,6 +24,7 @@ class Book
      * @var string
      *
      * @JMS\Type("string")
+     * @JMS\Expose
      */
     private $name;
 
@@ -30,16 +32,19 @@ class Book
      * @var string
      *
      * @JMS\Type("string")
+     * @JMS\Expose
      */
     private $author;
 
     /**
      * @JMS\Type("StorageApiClientBundle\Entity\Library")
+     * @JMS\Expose
      */
     private $library;
 
     /**
      * @JMS\Type("StorageApiClientBundle\Entity\User")
+     * @JMS\Expose
      */
     private $user;
 

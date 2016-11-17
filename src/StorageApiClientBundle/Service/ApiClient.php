@@ -2,6 +2,8 @@
 
 namespace StorageApiClientBundle\Service;
 
+use JMS\Serializer\SerializationContext;
+
 class ApiClient {
     private $client;
     private $serializer;
@@ -11,8 +13,10 @@ class ApiClient {
         $this->serializer = $serializer;
     }
 
-    private function query($url, $type, $data = null) {
-        $response = $this->client->request($data ? 'POST' : 'GET', $url, $data ? array('body' => $this->serializer->serialize($data, 'json')) : array());
+    private function query($url, $type, $data = null, $group = null) {
+        if(is_null($group)) $group = 'Default';
+
+        $response = $this->client->request($data ? 'POST' : 'GET', $url, $data ? array('body' => $this->serializer->serialize($data, 'json', SerializationContext::create()->setGroups($group))) : array());
 
         $body = $response->getBody();
 
@@ -38,7 +42,7 @@ class ApiClient {
     }
 
     public function newRecord($record) {
-        return $this->query('record/', 'StorageApiClientBundle\Entity\Record', $record);
+        return $this->query('record/', 'StorageApiClientBundle\Entity\Record', $record, 'record');
     }
 }
 

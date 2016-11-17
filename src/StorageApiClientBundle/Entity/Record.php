@@ -19,6 +19,7 @@ class Record
      *
      * @JMS\Type("integer")
      * @JMS\Expose
+     * @JMS\Groups({"Default", "record"})
      */
     private $id;
 
@@ -27,6 +28,7 @@ class Record
      *
      * @JMS\Type("string")
      * @JMS\Expose
+     * @JMS\Groups({"Default", "record"})
      */
     private $action;
 
@@ -35,18 +37,21 @@ class Record
      *
      * @JMS\Type("DateTime")
      * @JMS\Expose
+     * @JMS\Groups({"Default", "record"})
      */
     private $created;
 
     /**
      * @JMS\Type("StorageApiClientBundle\Entity\User")
      * @JMS\Expose
+     * @JMS\Groups({"Default", "record"})
      */
     private $user;
 
     /**
      * @JMS\Type("StorageApiClientBundle\Entity\Book")
      * @JMS\Expose
+     * @JMS\Groups({"Default", "record"})
      */
     private $book;
 

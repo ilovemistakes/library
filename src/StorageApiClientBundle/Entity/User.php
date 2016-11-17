@@ -16,6 +16,7 @@ class User
      *
      * @JMS\Type("integer")
      * @JMS\Expose
+     * @JMS\Groups({"Default", "record"})
      */
     private $id;
 
@@ -23,6 +24,7 @@ class User
      * @var string
      *
      * @JMS\Type("string")
+     * @JMS\Expose
      */
     private $name;
 
