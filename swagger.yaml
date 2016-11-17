@@ -2,9 +2,9 @@ swagger: "2.0"
 info:
   version: 1.0.0
   title: Library storage API
-  description: A sample USSR library API for fonemica.ru
+  description: API библиотек СССР для тестового задания fonemica.ru
   contact:
-    name: Chuprov Aleksey
+    name: Чупров Алексей
     email: ilovemistakes@mail.ru
 host: storage.local
 basePath: /api/v1
@@ -19,359 +19,364 @@ paths:
     get:
       tags: ["book"]
       description: |
-        Returns all books in all libraries
+        Возвращает все книги из всех библиотек
       responses:
         200:
-          description: list of books
+          description: список книг
           schema:
             type: array
             items:
               $ref: '#/definitions/Book'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /book/{id}:
     get:
       tags: ["book"]
-      description: Returns book details by ID
+      description: Возвращает книгу по ID
       parameters:
         - name: id
           in: path
-          description: ID of book to fetch
+          description: ID книги
           required: true
           type: integer
           format: int64
       responses:
         200:
-          description: book details
+          description: книга
           schema:
             $ref: '#/definitions/Book'
         404:
-          description: entity not found
+          description: объект не найден
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /library:
     get:
       tags: ["library"]
       description: |
-        Returns all libraries
+        Возвращает все библиотеки
       responses:
         200:
-          description: list of libraries
+          description: список библиотек
           schema:
             type: array
             items:
               $ref: '#/definitions/Library'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /library/{id}:
     get:
       tags: ["library"]
-      description: Returns library details by ID
+      description: Возвращает библиотеку по ID
       parameters:
         - name: id
           in: path
-          description: ID of library to fetch
+          description: ID библиотеки
           required: true
           type: integer
           format: int64
       responses:
         200:
-          description: library details
+          description: библиотека
           schema:
             $ref: '#/definitions/Library'
         404:
-          description: entity not found
+          description: объект не найден
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /library/{id}/books:
     get:
       tags: ["library"]
-      description: Returns library's book list
+      description: Возвращает все книги, которые принадлежат библиотеке
       parameters:
         - name: id
           in: path
-          description: ID of library to fetch
+          description: ID библиотеки для поиска книг
           required: true
           type: integer
           format: int64
       responses:
         200:
-          description: book list
+          description: список книг
           schema:
             type: array
             items:
               $ref: '#/definitions/Book'
         404:
-          description: entity not found
+          description: объект не найден
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /record:
     get:
       tags: ["record"]
       description: |
-        Returns all action records
+        Возвращает все записи о всех книгах
       responses:
         200:
-          description: list of records
+          description: список записей
           schema:
             type: array
             items:
               $ref: '#/definitions/Record'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
     post:
       tags: ["record"]
       description: |
-        Creates a new action record for the book
+        Создаёт новую запись о взятии/возврате книги
       parameters:
         - name: record
           in: body
-          description: record entity
+          description: запись
           required: true
           schema:
             $ref: '#/definitions/NewRecord'
       responses:
         201:
-          description: redirect to a new record entity
+          description: пренаправление на созданную запись
+          headers:
+            Location:
+              description: URL новой записи
+              type: string
+              default: api/v1/records/5742983
           schema:
             $ref: '#/definitions/Error'
         400:
-          description: invalid input or book is already returned/taken
+          description: неверные параметры, или книга уже взята/возвращена
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /record/{id}:
     get:
       tags: ["record"]
-      description: Returns record's details by ID
+      description: Возвращает запись о книге ID
       parameters:
         - name: id
           in: path
-          description: ID of record to fetch
+          description: ID записи
           required: true
           type: integer
           format: int64
       responses:
         200:
-          description: record details
+          description: запись
           schema:
             $ref: '#/definitions/Record'
         404:
-          description: entity not found
+          description: объект не найден
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /user:
     get:
       tags: ["user"]
       description: |
-        Returns all users
+        Возвращает всех читателей
       responses:
         200:
-          description: list of users
+          description: список читателей
           schema:
             type: array
             items:
               $ref: '#/definitions/User'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /user/{id}:
     get:
       tags: ["user"]
-      description: Returns user details by ID
+      description: Возвращает читателя по ID
       parameters:
         - name: id
           in: path
-          description: ID of user to fetch
+          description: ID читателя
           required: true
           type: integer
           format: int64
       responses:
         200:
-          description: user details
+          description: читатель
           schema:
             $ref: '#/definitions/User'
         404:
-          description: entity not found
+          description: объект не найден
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /user/{name}:
     get:
       tags: ["user"]
-      description: Returns user details by name
+      description: Возвращает читателя по имени
       parameters:
         - name: name
           in: path
-          description: name of user to fetch
+          description: имя читателя
           required: true
           type: string
       responses:
         200:
-          description: user details
+          description: читатель
           schema:
             $ref: '#/definitions/User'
         404:
-          description: entity not found
+          description: объект не найден
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /user/{id}/report/books:
     get:
       tags: ["user", "book"]
-      description: Returns all user's taken books
+      description: Возвращает все книги, которые находятся на руках у читателя
       parameters:
         - name: id
           in: path
-          description: ID of user to fetch
+          description: ID читателя
           required: true
           type: integer
           format: int64
       responses:
         200:
-          description: book list
+          description: список книг
           schema:
             type: array
             items:
               $ref: '#/definitions/Book'
         404:
-          description: entity not found
+          description: объект не найден
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /user/{name}/report/books:
     get:
       tags: ["user", "book"]
-      description: Returns all user's taken books by name
+      description: Возвращает все книги, которые находятся на руках у читателя, по имени читателя
       parameters:
         - name: name
           in: path
-          description: name of user to fetch
+          description: имя читателя
           required: true
           type: string
       responses:
         200:
-          description: book list
+          description: список книг
           schema:
             type: array
             items:
               $ref: '#/definitions/Book'
         404:
-          description: entity not found
+          description: объект не найден
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /user/{id}/report/records:
     get:
       tags: ["user", "record"]
-      description: Returns all user's action records
+      description: Возвращает все записи про читателя
       parameters:
         - name: id
           in: path
-          description: ID of user to fetch
+          description: ID читателя
           required: true
           type: integer
           format: int64
         - name: from
           in: query
-          description: search period start
-          required: true
+          description: начало периода
+          required: false
           type: string
           format: date-time
         - name: to
           in: query
-          description: search period end
-          required: true
+          description: конец периода
+          required: false
           type: string
           format: date-time
       responses:
         200:
-          description: record list
+          description: список записей
           schema:
             type: array
             items:
               $ref: '#/definitions/Record'
         404:
-          description: entity not found
+          description: объект не найден
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
   /user/{name}/report/records:
     get:
       tags: ["user", "record"]
-      description: Returns all user's action records by name
+      description: Возвращает все записи про читателя по имени
       parameters:
         - name: name
           in: path
-          description: name of user to fetch
+          description: имя читателя
           required: true
           type: string
         - name: from
           in: query
-          description: search period start
-          required: true
+          description: начало периода
+          required: false
           type: string
           format: date-time
         - name: to
           in: query
-          description: search period end
-          required: true
+          description: конец периода
+          required: false
           type: string
           format: date-time
       responses:
         200:
-          description: record list
+          description: список записей
           schema:
             type: array
             items:
               $ref: '#/definitions/Record'
         404:
-          description: entity not found
+          description: объект не найден
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: unexpected error
+          description: непредвиденная ошибка
           schema:
             $ref: '#/definitions/Error'
 definitions:
