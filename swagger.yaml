@@ -1,0 +1,484 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Library storage API
+  description: A sample USSR library API for fonemica.ru
+  contact:
+    name: Chuprov Aleksey
+    email: ilovemistakes@mail.ru
+host: storage.local
+basePath: /api/v1
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /book:
+    get:
+      tags: ["book"]
+      description: |
+        Returns all books in all libraries
+      responses:
+        200:
+          description: list of books
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /book/{id}:
+    get:
+      tags: ["book"]
+      description: Returns book details by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of book to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: book details
+          schema:
+            $ref: '#/definitions/Book'
+        404:
+          description: entity not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /library:
+    get:
+      tags: ["library"]
+      description: |
+        Returns all libraries
+      responses:
+        200:
+          description: list of libraries
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Library'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /library/{id}:
+    get:
+      tags: ["library"]
+      description: Returns library details by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of library to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: library details
+          schema:
+            $ref: '#/definitions/Library'
+        404:
+          description: entity not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /library/{id}/books:
+    get:
+      tags: ["library"]
+      description: Returns library's book list
+      parameters:
+        - name: id
+          in: path
+          description: ID of library to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: book list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+        404:
+          description: entity not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /record:
+    get:
+      tags: ["record"]
+      description: |
+        Returns all action records
+      responses:
+        200:
+          description: list of records
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Record'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags: ["record"]
+      description: |
+        Creates a new action record for the book
+      parameters:
+        - name: record
+          in: body
+          description: record entity
+          required: true
+          schema:
+            $ref: '#/definitions/NewRecord'
+      responses:
+        201:
+          description: redirect to a new record entity
+          schema:
+            $ref: '#/definitions/Error'
+        400:
+          description: invalid input or book is already returned/taken
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /record/{id}:
+    get:
+      tags: ["record"]
+      description: Returns record's details by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of record to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: record details
+          schema:
+            $ref: '#/definitions/Record'
+        404:
+          description: entity not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user:
+    get:
+      tags: ["user"]
+      description: |
+        Returns all users
+      responses:
+        200:
+          description: list of users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/{id}:
+    get:
+      tags: ["user"]
+      description: Returns user details by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of user to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: user details
+          schema:
+            $ref: '#/definitions/User'
+        404:
+          description: entity not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/{name}:
+    get:
+      tags: ["user"]
+      description: Returns user details by name
+      parameters:
+        - name: name
+          in: path
+          description: name of user to fetch
+          required: true
+          type: string
+      responses:
+        200:
+          description: user details
+          schema:
+            $ref: '#/definitions/User'
+        404:
+          description: entity not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/{id}/report/books:
+    get:
+      tags: ["user", "book"]
+      description: Returns all user's taken books
+      parameters:
+        - name: id
+          in: path
+          description: ID of user to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: book list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+        404:
+          description: entity not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/{name}/report/books:
+    get:
+      tags: ["user", "book"]
+      description: Returns all user's taken books by name
+      parameters:
+        - name: name
+          in: path
+          description: name of user to fetch
+          required: true
+          type: string
+      responses:
+        200:
+          description: book list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+        404:
+          description: entity not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/{id}/report/records:
+    get:
+      tags: ["user", "record"]
+      description: Returns all user's action records
+      parameters:
+        - name: id
+          in: path
+          description: ID of user to fetch
+          required: true
+          type: integer
+          format: int64
+        - name: from
+          in: query
+          description: search period start
+          required: true
+          type: string
+          format: date-time
+        - name: to
+          in: query
+          description: search period end
+          required: true
+          type: string
+          format: date-time
+      responses:
+        200:
+          description: record list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Record'
+        404:
+          description: entity not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/{name}/report/records:
+    get:
+      tags: ["user", "record"]
+      description: Returns all user's action records by name
+      parameters:
+        - name: name
+          in: path
+          description: name of user to fetch
+          required: true
+          type: string
+        - name: from
+          in: query
+          description: search period start
+          required: true
+          type: string
+          format: date-time
+        - name: to
+          in: query
+          description: search period end
+          required: true
+          type: string
+          format: date-time
+      responses:
+        200:
+          description: record list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Record'
+        404:
+          description: entity not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Book:
+    allOf:
+      - required:
+        - id
+        properties:
+          id:
+            type: integer
+            format: int64
+      - $ref: '#/definitions/NewBook'
+  NewBook:
+    required:
+      - name
+      - author
+    properties:
+      name:
+        type: string
+      author:
+        type: string
+  Library:
+    allOf:
+      - required:
+        - id
+        properties:
+          id:
+            type: integer
+            format: int64
+      - $ref: '#/definitions/NewLibrary'
+  NewLibrary:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+  Record:
+    required:
+      - id
+      - action
+      - created
+      - user
+      - book
+    properties:
+      id:
+        type: integer
+        format: int64
+      action:
+        type: string
+        enum: ["take", "return"]
+      created:
+        type: string
+        format: date-time
+      user:
+        type: object
+        $ref: '#/definitions/User'
+      book:
+        type: object
+        $ref: '#/definitions/Book'
+  NewRecord:
+    required:
+      - action
+      - created
+      - user
+      - book
+    properties:
+      action:
+        type: string
+        enum: ["take", "return"]
+      created:
+        type: string
+        format: date-time
+      user:
+        type: object
+        $ref: '#/definitions/IdOnly'
+      book:
+        type: object
+        $ref: '#/definitions/IdOnly'
+  User:
+    allOf:
+      - required:
+        - id
+        properties:
+          id:
+            type: integer
+            format: int64
+      - $ref: '#/definitions/NewUser'
+  NewUser:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+  Error:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+  IdOnly:
+    required:
+      - id
+    properties:
+      id:
+        type: integer
+        format: int64
