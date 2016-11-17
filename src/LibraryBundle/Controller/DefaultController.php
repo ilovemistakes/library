@@ -117,4 +117,15 @@ class DefaultController extends Controller
             'form' => $form->createView(),
         ));
     }
+
+    /**
+     * @Route("/report", name="library_report")
+     */
+    public function reportAction(Request $request) {
+        $stats = $this->get('storage_api_client.client')->getReportTopBooks(3);
+
+        return $this->render('LibraryBundle:Default:report.html.twig', array(
+            'stats' => $stats,
+        ));
+    }
 }

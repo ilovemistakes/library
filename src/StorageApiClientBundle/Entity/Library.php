@@ -23,6 +23,7 @@ class Library
      * @var string
      *
      * @JMS\Type("string")
+     * @JMS\Expose
      */
     private $name;
 

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h4>Статистика</h4>
+
+    <p>Самые читаемые книги в каждой библиотеке:
+    <table>
+        <tr>
+            <th>Библиотека</th>
+            <th>Название книги</th>
+            <th>Автор</th>
+            <th>Дней на руках</th>
+        </tr>
+        {% for stat in stats %}
+            <tr>
+                <td>{{ stat.book.library.name }}</td>
+                <td>{{ stat.book.name }}</td>
+                <td>{{ stat.book.author }}</td>
+                <td>{{ stat.count }}</td>
+            </tr>
+        {% else %}
+            <tr><td colspan="4">В настоящее время нет статистики по книгам, зайдите позже!</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %}

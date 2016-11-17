@@ -44,5 +44,9 @@ class ApiClient {
     public function newRecord($record) {
         return $this->query('record/', 'StorageApiClientBundle\Entity\Record', $record, 'record');
     }
+
+    public function getReportTopBooks($limit) {
+        return $this->query('report/top_books?limit=' . intval($limit), 'array<StorageApiClientBundle\Entity\BookStat>');
+    }
 }
 
