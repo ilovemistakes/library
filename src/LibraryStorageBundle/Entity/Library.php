@@ -21,7 +21,7 @@ class Library
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"details", "list"})
+     * @JMS\Groups({"details", "list", "report"})
      */
     private $id;
 
@@ -30,7 +30,7 @@ class Library
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"details", "list"})
+     * @JMS\Groups({"details", "list", "report"})
      */
     private $name;
 

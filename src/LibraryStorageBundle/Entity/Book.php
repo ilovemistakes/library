@@ -21,7 +21,7 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"details", "list"})
+     * @JMS\Groups({"details", "list", "report"})
      */
     private $id;
 
@@ -30,7 +30,7 @@ class Book
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"details", "list"})
+     * @JMS\Groups({"details", "list", "report"})
      */
     private $name;
 
@@ -39,7 +39,7 @@ class Book
      *
      * @ORM\Column(name="author", type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"details", "list"})
+     * @JMS\Groups({"details", "list", "report"})
      */
     private $author;
 
@@ -47,7 +47,7 @@ class Book
      * @ORM\ManyToOne(targetEntity="Library", inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      * @JMS\Expose
-     * @JMS\Groups({"details"})
+     * @JMS\Groups({"details", "report"})
      */
     private $library;
 
