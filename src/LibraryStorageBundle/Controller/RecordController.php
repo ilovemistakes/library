@@ -40,8 +40,6 @@ class RecordController extends Controller
     public function newAction(Request $request)
     {
         $record = new Record();
-        dump($record);
-        dump($this->createForm('LibraryStorageBundle\Form\RecordType'));
         $form = $this->createForm('LibraryStorageBundle\Form\RecordType', $record);
         $form->handleRequest($request);
 
