@@ -20,8 +20,6 @@ class DefaultController extends Controller
     {
         $books = $this->get('storage_api_client.client')->getBooks();
 
-        dump($books);
-
         return $this->render('LibraryBundle:Default:index.html.twig', array(
             'books' => $books,
         ));
