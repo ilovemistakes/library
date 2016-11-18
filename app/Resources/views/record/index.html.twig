@@ -8,6 +8,7 @@
             <tr>
                 <th>Id</th>
                 <th>Action</th>
+                <th>Created</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
             <tr>
                 <td><a href="{{ path('record_show', { 'id': record.id }) }}">{{ record.id }}</a></td>
                 <td>{{ record.action }}</td>
+                <td>{% if record.created %}{{ record.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                     <ul>
                         <li>

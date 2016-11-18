@@ -13,6 +13,10 @@
                 <th>Action</th>
                 <td>{{ record.action }}</td>
             </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if record.created %}{{ record.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
         </tbody>
     </table>
 

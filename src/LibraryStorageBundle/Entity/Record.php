@@ -41,13 +41,12 @@ class Record
     private $action;
 
     /**
-     * @var datetime
+     * @var \DateTime
      *
      * @ORM\Column(name="created", type="datetime")
      * @JMS\Expose
      * @JMS\Groups({"details", "list"})
      * @Assert\NotBlank()
-     * @Assert\DateTime()
      */
     private $created;
 
