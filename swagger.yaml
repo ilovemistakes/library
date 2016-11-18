@@ -6,7 +6,7 @@ info:
   contact:
     name: Чупров Алексей
     email: ilovemistakes@mail.ru
-host: storage.local
+host: library.entracker.ru
 basePath: /api/v1
 schemes:
   - http
